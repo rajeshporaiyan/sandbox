@@ -1,0 +1,50 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.3.RELEASE'
+        camelVersion='2.18.1'
+        hawtVersion='2.0.0'
+        kafkaVersion='0.10.1.1'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+jar {
+	baseName = 'event-store'
+	version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compileOnly('org.projectlombok:lombok')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+
+	//camel
+    compile("org.apache.camel:camel-spring-boot-starter:$camelVersion")
+    testCompile("org.apache.camel:camel-test:$camelVersion")
+
+    //hawt
+    compile("io.hawt:hawtio-springboot:$hawtVersion")
+    compile("io.hawt:hawtio-core:$hawtVersion")
+
+    //kafka
+   // compile('org.springframework.cloud:spring-cloud-stream')
+   // compile('org.springframework.cloud:spring-cloud-starter-stream-kafka')
+    compile("org.apache.camel:camel-kafka:$camelVersion")
+ //   compile("org.apache.kafka:kafka_2.12:$kafkaVersion")
+}
